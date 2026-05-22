@@ -88,6 +88,11 @@ def main():
         help="Number of initial dense layers (overrides config's num_dense_layers).",
     )
     parser.add_argument(
+        "--qk_norm",
+        action="store_true",
+        help="Normalization for query and key (auto-detected if omitted)",
+    )
+    parser.add_argument(
         "--tie-embeddings",
         "-t",
         action=argparse.BooleanOptionalAction,
@@ -119,6 +124,7 @@ def main():
         ffn=ffn,
         tie_embeddings=args.tie_embeddings,
         num_dense_layers=num_dense,
+        qk_norm=args.qk_norm,
     )
 
     print()

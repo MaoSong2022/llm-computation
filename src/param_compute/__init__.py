@@ -23,7 +23,12 @@ def _parse_ffn_spec(ffn: str) -> tuple[str, str]:
 
 
 def compute_params(
-    config, attention="gqa", ffn="silu", tie_embeddings=None, num_dense_layers=None
+    config,
+    attention="gqa",
+    ffn="silu",
+    tie_embeddings=None,
+    num_dense_layers=None,
+    qk_norm=None,
 ):
     if isinstance(config, dict):
         cfg = config
@@ -64,7 +69,7 @@ def compute_params(
     )
     num_moe = n_layers - num_dense
 
-    n_attn_params = attn_fn(cfg)
+    n_attn_params = attn_fn(cfg, qk_norm=qk_norm)
     dense_total, dense_activated = dense_ffn_fn(cfg) if num_dense > 0 else (0, 0)
     moe_total, moe_activated = moe_ffn_fn(cfg) if num_moe > 0 else (0, 0)
 

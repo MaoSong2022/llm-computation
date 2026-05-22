@@ -2,23 +2,7 @@ from loguru import logger
 from .shared import linear_params, layernorm_params
 
 
-def _mha(cfg: dict) -> int:
-    d_model = cfg["hidden_size"]
-    n_heads = cfg["num_attention_heads"]
-    bias = cfg.get("bias", False)
-
-    logger.info(
-        "MHA config: {}".format({"d_model": d_model, "n_heads": n_heads, "bias": bias})
-    )
-    head_dim = d_model // n_heads
-    q = linear_params(d_model, n_heads * head_dim, bias)
-    k = linear_params(d_model, n_heads * head_dim, bias)
-    v = linear_params(d_model, n_heads * head_dim, bias)
-    o = linear_params(n_heads * head_dim, d_model, bias)
-    return q + k + v + o
-
-
-def _gqa(cfg: dict, n_kv_heads: int | None = None) -> int:
+def _gqa(cfg: dict, n_kv_heads: int | None = None, qk_norm=None) -> int:
     d_model = cfg["hidden_size"]
     n_heads = cfg["num_attention_heads"]
     n_kv_heads = (
@@ -27,6 +11,13 @@ def _gqa(cfg: dict, n_kv_heads: int | None = None) -> int:
     bias = cfg.get("bias", False)
     head_dim = d_model // n_heads
 
+    if qk_norm is not None:
+        q_norm = layernorm_params(head_dim, bias)
+        k_norm = layernorm_params(head_dim, bias)
+    else:
+        q_norm = 0
+        k_norm = 0
+
     logger.info(
         "GQA config: {}".format(
             {
@@ -34,6 +25,8 @@ def _gqa(cfg: dict, n_kv_heads: int | None = None) -> int:
                 "n_heads": n_heads,
                 "n_kv_heads": n_kv_heads,
                 "bias": bias,
+                "q_norm": q_norm,
+                "k_norm": k_norm,
             }
         )
     )
@@ -41,11 +34,26 @@ def _gqa(cfg: dict, n_kv_heads: int | None = None) -> int:
     k = linear_params(d_model, n_kv_heads * head_dim, bias)
     v = linear_params(d_model, n_kv_heads * head_dim, bias)
     o = linear_params(n_heads * head_dim, d_model, bias)
-    return q + k + v + o
+    logger.debug(
+        {
+            "q": q,
+            "k": k,
+            "v": v,
+            "o": o,
+            "q_norm": q_norm,
+            "k_norm": k_norm,
+        }
+    )
+    return q + k + v + o + q_norm + k_norm
 
 
-def _mqa(cfg: dict) -> int:
-    return _gqa(cfg, n_kv_heads=1)
+def _mha(cfg: dict, qk_norm=None) -> int:
+    n_kv_heads = cfg["num_attention_heads"]
+    return _gqa(cfg, n_kv_heads=n_kv_heads, qk_norm=qk_norm)
+
+
+def _mqa(cfg: dict, qk_norm=None) -> int:
+    return _gqa(cfg, n_kv_heads=1, qk_norm=qk_norm)
 
 
 def _mla(cfg: dict) -> int:
