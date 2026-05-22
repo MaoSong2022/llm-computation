@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import json
-import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -99,9 +98,9 @@ def main():
     args = parser.parse_args()
 
     cfg = load_config(args.model)
-    logger.info(f"Model: {cfg.get('_name_or_path', args.model)}", file=sys.stderr)
+    logger.info(f"Model: {cfg.get('_name_or_path', args.model)}")
     if "architectures" in cfg:
-        logger.info(f"Architecture: {cfg['architectures']}", file=sys.stderr)
+        logger.info(f"Architecture: {cfg['architectures']}")
 
     attention = args.attention or detect_attention(cfg)
     ffn = args.ffn or detect_ffn(cfg)
@@ -111,8 +110,7 @@ def main():
         else args.num_dense_layers
     )
     logger.info(
-        f"Detected / using -> attention: {attention}, ffn: {ffn}, num_dense_layers: {num_dense}",
-        file=sys.stderr,
+        f"Detected / using -> attention: {attention}, ffn: {ffn}, num_dense_layers: {num_dense}"
     )
 
     result = compute_params(
