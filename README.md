@@ -29,11 +29,22 @@ uv run compute_model_params.py -m <model_id_or_config_path> [options]
 | `--qk-norm` / `--no-qk-norm` | | Enable/disable QK normalization (auto-detected from config if omitted) |
 | `--tie-embeddings` / `--no-tie-embeddings` | `-t` | Override `tie_word_embeddings` (default: `false`) |
 
-## Tests
+## Verification
 
-- Completed for DeepSeek V1, MoE, V2, V3.
-- [Processing] LLaMA series
-- [Processing] Qwen series
+Run these to verify correctness across supported architectures:
+
+| Model | Attention | FFN | Command | Total | Verified |
+|-------|-----------|-----|---------|-------|:--------:|
+| BERT base uncased | MHA | gelu | `-m google-bert/bert-base-uncased -f gelu` | 131.8M | |
+| GPT-2 (124M) | MHA | gelu | `-m openai-community/gpt2 -f gelu` | 124.4M | |
+| Mistral 7B | GQA | silu | `-m mistralai/Mistral-7B-v0.3` | 7.25B | |
+| Qwen 2.5 7B | GQA | silu | `-m Qwen/Qwen2.5-7B-Instruct` | 7.62B | |
+| Llama 3 8B | GQA | silu | `-m meta-llama/Meta-Llama-3-8B` | 8.03B | |
+| Phi-2 | GQA | silu | `-m microsoft/phi-2` | 3.62B | |
+| Mixtral 8x7B | GQA | moe_gated | `-m mistralai/Mixtral-8x7B-v0.1 -f moe_gated` | 46.70B (12.88B activated) | |
+| DeepSeek-V2-Chat | mla | silu+deepseek_moe | `-m deepseek-ai/DeepSeek-V2-Chat -a mla -f silu+deepseek_moe --num-dense-layers 1` | 235.74B (21.38B activated) | |
+
+> Note: Some models (e.g. Llama 3, Gemma 2) require authentication on HuggingFace. Use a local `config.json` or a token for access.
 
 ## Examples
 
