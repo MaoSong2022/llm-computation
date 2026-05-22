@@ -26,6 +26,7 @@ uv run compute_model_params.py -m <model_id_or_config_path> [options]
 | `--attention` | `-a` | Attention variant: `mha`, `gqa`, `mqa`, `mla` (auto-detected if omitted) |
 | `--ffn` | `-f` | FFN variant: `silu`, `swiglu`, `gelu`, `relu`, `moe`, `moe_gated`, `deepseek_moe`. Use `+` for hybrid (e.g. `silu+deepseek_moe`) |
 | `--num-dense-layers` | | Override number of initial dense layers (default: read from config) |
+| `--qk-norm` / `--no-qk-norm` | | Enable/disable QK normalization (auto-detected from config if omitted) |
 | `--tie-embeddings` / `--no-tie-embeddings` | `-t` | Override `tie_word_embeddings` (default: `false`) |
 
 ## Tests

@@ -11,7 +11,7 @@ def _gqa(cfg: dict, n_kv_heads: int | None = None, qk_norm=None) -> int:
     bias = cfg.get("bias", False)
     head_dim = d_model // n_heads
 
-    if qk_norm is not None:
+    if qk_norm:
         q_norm = layernorm_params(head_dim, bias)
         k_norm = layernorm_params(head_dim, bias)
     else:
@@ -56,7 +56,7 @@ def _mqa(cfg: dict, qk_norm=None) -> int:
     return _gqa(cfg, n_kv_heads=1, qk_norm=qk_norm)
 
 
-def _mla(cfg: dict) -> int:
+def _mla(cfg: dict, qk_norm=None) -> int:
     d_model = cfg["hidden_size"]
     n_heads = cfg["num_attention_heads"]
     kv_lora_rank = cfg["kv_lora_rank"]

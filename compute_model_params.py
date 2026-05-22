@@ -44,6 +44,10 @@ def detect_num_dense_layers(cfg: dict) -> int:
     return cfg.get("num_dense_layers", 0)
 
 
+def detect_qk_norm(cfg: dict) -> bool:
+    return bool(cfg.get("qk_norm", False) or cfg.get("use_qk_norm", False))
+
+
 FFN_CHOICES = ["silu", "swiglu", "gelu", "relu", "moe", "moe_gated", "deepseek_moe"]
 
 
@@ -88,8 +92,9 @@ def main():
         help="Number of initial dense layers (overrides config's num_dense_layers).",
     )
     parser.add_argument(
-        "--qk_norm",
-        action="store_true",
+        "--qk-norm",
+        action=argparse.BooleanOptionalAction,
+        default=None,
         help="Normalization for query and key (auto-detected if omitted)",
     )
     parser.add_argument(
@@ -114,8 +119,9 @@ def main():
         if args.num_dense_layers is None
         else args.num_dense_layers
     )
+    qk_norm = detect_qk_norm(cfg) if args.qk_norm is None else args.qk_norm
     logger.info(
-        f"Detected / using -> attention: {attention}, ffn: {ffn}, num_dense_layers: {num_dense}"
+        f"Detected / using -> attention: {attention}, ffn: {ffn}, num_dense_layers: {num_dense}, qk_norm: {qk_norm}"
     )
 
     result = compute_params(
@@ -124,7 +130,7 @@ def main():
         ffn=ffn,
         tie_embeddings=args.tie_embeddings,
         num_dense_layers=num_dense,
-        qk_norm=args.qk_norm,
+        qk_norm=qk_norm,
     )
 
     print()
