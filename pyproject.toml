@@ -1,0 +1,14 @@
+[project]
+name = "cs336"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "jupyter>=1.1.1",
+    "loguru>=0.7.3",
+    "matplotlib>=3.10.9",
+    "pandas>=2.3.3",
+    "ruff>=0.15.13",
+    "ty>=0.0.38",
+]
