@@ -9,7 +9,7 @@ def _gqa(cfg: dict, n_kv_heads: int | None = None, qk_norm=None) -> int:
         cfg.get("num_key_value_heads", n_heads) if n_kv_heads is None else n_kv_heads
     )
     bias = cfg.get("bias", False)
-    head_dim = d_model // n_heads
+    head_dim = cfg.get("head_dim", d_model // n_heads)
 
     if qk_norm:
         q_norm = layernorm_params(head_dim, bias)
