@@ -1,0 +1,498 @@
+[
+    {
+        "model": "Qwen/Qwen3-235B-A22B",
+        "year": 2025,
+        "family": "MoE",
+        "attention": "GQA",
+        "total_params_billion": 235.09,
+        "active_params_billion": 22.19,
+        "config": {
+            "architectures": [
+                "Qwen3MoeForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "decoder_sparse_step": 1,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 4096,
+            "initializer_range": 0.02,
+            "intermediate_size": 12288,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 94,
+            "mlp_only_layers": [],
+            "model_type": "qwen3_moe",
+            "moe_intermediate_size": 1536,
+            "norm_topk_prob": true,
+            "num_attention_heads": 64,
+            "num_experts": 128,
+            "num_experts_per_tok": 8,
+            "num_hidden_layers": 94,
+            "num_key_value_heads": 4,
+            "output_router_logits": false,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000.0,
+            "router_aux_loss_coef": 0.001,
+            "sliding_window": null,
+            "tie_word_embeddings": false,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 1.24,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 6.7,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 227.15,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-30B-A3B",
+        "year": 2025,
+        "family": "MoE",
+        "attention": "GQA",
+        "total_params_billion": 30.53,
+        "active_params_billion": 3.35,
+        "config": {
+            "architectures": [
+                "Qwen3MoeForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "decoder_sparse_step": 1,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 2048,
+            "initializer_range": 0.02,
+            "intermediate_size": 6144,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 48,
+            "mlp_only_layers": [],
+            "model_type": "qwen3_moe",
+            "moe_intermediate_size": 768,
+            "norm_topk_prob": true,
+            "num_attention_heads": 32,
+            "num_experts": 128,
+            "num_experts_per_tok": 8,
+            "num_hidden_layers": 48,
+            "num_key_value_heads": 4,
+            "output_router_logits": false,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000.0,
+            "router_aux_loss_coef": 0.001,
+            "sliding_window": null,
+            "tie_word_embeddings": false,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 0.62,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 0.91,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 29.0,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-8B",
+        "year": 2025,
+        "family": "Dense",
+        "attention": "GQA",
+        "total_params_billion": 8.19,
+        "active_params_billion": 8.19,
+        "config": {
+            "architectures": [
+                "Qwen3ForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 4096,
+            "initializer_range": 0.02,
+            "intermediate_size": 12288,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 36,
+            "model_type": "qwen3",
+            "num_attention_heads": 32,
+            "num_hidden_layers": 36,
+            "num_key_value_heads": 8,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000,
+            "sliding_window": null,
+            "tie_word_embeddings": false,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 1.24,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 1.51,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 5.44,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-4B",
+        "year": 2025,
+        "family": "Dense",
+        "attention": "GQA",
+        "total_params_billion": 4.02,
+        "active_params_billion": 4.02,
+        "config": {
+            "architectures": [
+                "Qwen3ForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 2560,
+            "initializer_range": 0.02,
+            "intermediate_size": 9728,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 36,
+            "model_type": "qwen3",
+            "num_attention_heads": 32,
+            "num_hidden_layers": 36,
+            "num_key_value_heads": 8,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000,
+            "sliding_window": null,
+            "tie_word_embeddings": true,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 0.39,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 0.94,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 2.69,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-1.7B",
+        "year": 2025,
+        "family": "Dense",
+        "attention": "GQA",
+        "total_params_billion": 1.72,
+        "active_params_billion": 1.72,
+        "config": {
+            "architectures": [
+                "Qwen3ForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 2048,
+            "initializer_range": 0.02,
+            "intermediate_size": 6144,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 28,
+            "model_type": "qwen3",
+            "num_attention_heads": 16,
+            "num_hidden_layers": 28,
+            "num_key_value_heads": 8,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000,
+            "sliding_window": null,
+            "tie_word_embeddings": true,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 0.31,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 0.35,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 1.06,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-0.6B",
+        "year": 2025,
+        "family": "Dense",
+        "attention": "GQA",
+        "total_params_billion": 0.6,
+        "active_params_billion": 0.6,
+        "config": {
+            "architectures": [
+                "Qwen3ForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 1024,
+            "initializer_range": 0.02,
+            "intermediate_size": 3072,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 28,
+            "model_type": "qwen3",
+            "num_attention_heads": 16,
+            "num_hidden_layers": 28,
+            "num_key_value_heads": 8,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000,
+            "sliding_window": null,
+            "tie_word_embeddings": true,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 0.16,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 0.18,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 0.26,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-14B",
+        "year": 2025,
+        "family": "Dense",
+        "attention": "GQA",
+        "total_params_billion": 14.77,
+        "active_params_billion": 14.77,
+        "config": {
+            "architectures": [
+                "Qwen3ForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 5120,
+            "initializer_range": 0.02,
+            "intermediate_size": 17408,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 40,
+            "model_type": "qwen3",
+            "num_attention_heads": 40,
+            "num_hidden_layers": 40,
+            "num_key_value_heads": 8,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000,
+            "sliding_window": null,
+            "tie_word_embeddings": false,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 1.56,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 2.52,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 10.7,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    },
+    {
+        "model": "Qwen/Qwen3-32B",
+        "year": 2025,
+        "family": "Dense",
+        "attention": "GQA",
+        "total_params_billion": 32.76,
+        "active_params_billion": 32.76,
+        "config": {
+            "architectures": [
+                "Qwen3ForCausalLM"
+            ],
+            "attention_bias": false,
+            "attention_dropout": 0.0,
+            "bos_token_id": 151643,
+            "eos_token_id": 151645,
+            "head_dim": 128,
+            "hidden_act": "silu",
+            "hidden_size": 5120,
+            "initializer_range": 0.02,
+            "intermediate_size": 25600,
+            "max_position_embeddings": 40960,
+            "max_window_layers": 64,
+            "model_type": "qwen3",
+            "num_attention_heads": 64,
+            "num_hidden_layers": 64,
+            "num_key_value_heads": 8,
+            "rms_norm_eps": 1e-06,
+            "rope_scaling": null,
+            "rope_theta": 1000000,
+            "sliding_window": null,
+            "tie_word_embeddings": false,
+            "torch_dtype": "bfloat16",
+            "transformers_version": "4.51.0",
+            "use_cache": true,
+            "use_sliding_window": false,
+            "vocab_size": 151936
+        },
+        "parts": [
+            {
+                "name": "Embeddings",
+                "params_billion": 1.56,
+                "description": "Token embedding and output projection"
+            },
+            {
+                "name": "Attention",
+                "params_billion": 6.04,
+                "description": "Q/K/V/O projections across all layers"
+            },
+            {
+                "name": "FFN",
+                "params_billion": 25.17,
+                "description": "Feed-forward blocks"
+            },
+            {
+                "name": "Norms",
+                "params_billion": 0.0,
+                "description": "Layer norms and auxiliary parameters"
+            }
+        ]
+    }
+]
