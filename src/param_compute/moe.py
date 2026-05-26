@@ -1,6 +1,7 @@
 from loguru import logger
 
 from .shared import linear_params
+from .ffn import DENSE_FFN_VARIANTS
 
 
 def _get_n_experts(cfg: dict) -> int:
@@ -19,7 +20,7 @@ def _get_activated_experts(cfg: dict) -> int:
 
 def _moe(cfg: dict) -> tuple[int, int]:
     d_model = cfg["hidden_size"]
-    d_ff = cfg.get("intermediate_size", 4 * d_model)
+    d_ff = cfg.get("moe_intermediate_size", 4 * d_model)
     n_experts = _get_n_experts(cfg)
     top_k = _get_activated_experts(cfg)
     bias = cfg.get("bias", False)
@@ -35,7 +36,14 @@ def _moe(cfg: dict) -> tuple[int, int]:
             }
         )
     )
-    expert = linear_params(d_model, d_ff, bias) + linear_params(d_ff, d_model, bias)
+    ffn = DENSE_FFN_VARIANTS["silu"]
+    expert, _ = ffn(
+        {
+            "hidden_size": d_model,
+            "intermediate_size": d_ff,
+            "bias": bias,
+        }
+    )
     router = linear_params(d_model, n_experts)
     total = n_experts * expert + router
     activated = top_k * expert + router
@@ -60,7 +68,15 @@ def _moe_gated(cfg: dict) -> tuple[int, int]:
             }
         )
     )
-    expert = 2 * linear_params(d_model, d_ff, bias) + linear_params(d_ff, d_model, bias)
+    ffn = DENSE_FFN_VARIANTS["silu"]
+
+    expert, _ = ffn(
+        {
+            "hidden_size": d_model,
+            "intermediate_size": d_ff,
+            "bias": bias,
+        }
+    )
     router = linear_params(d_model, n_experts)
     total = n_experts * expert + router
     activated = top_k * expert + router
@@ -92,8 +108,8 @@ def _deepseek_moe(cfg: dict) -> tuple[int, int]:
         )
     )
 
-    shared_expert = (
-        2 * linear_params(d_model, d_ff, bias) + linear_params(d_ff, d_model, bias)
+    shared_expert = 2 * linear_params(d_model, d_ff, bias) + linear_params(
+        d_ff, d_model, bias
     )
     shared = n_shared * shared_expert
     routed = n_routed * shared_expert
