@@ -35,14 +35,14 @@ Run these to verify correctness across supported architectures:
 
 | Model | Attention | FFN | Command | Total | Verified |
 |-------|-----------|-----|---------|-------|:--------:|
-| BERT base uncased | MHA | gelu | `-m google-bert/bert-base-uncased -f gelu` | 131.8M | |
-| GPT-2 (124M) | MHA | gelu | `-m openai-community/gpt2 -f gelu` | 124.4M | |
-| Mistral 7B | GQA | silu | `-m mistralai/Mistral-7B-v0.3` | 7.25B | |
-| Qwen 2.5 7B | GQA | silu | `-m Qwen/Qwen2.5-7B-Instruct` | 7.62B | |
-| Llama 3 8B | GQA | silu | `-m meta-llama/Meta-Llama-3-8B` | 8.03B | |
-| Phi-2 | GQA | silu | `-m microsoft/phi-2` | 3.62B | |
-| Mixtral 8x7B | GQA | moe_gated | `-m mistralai/Mixtral-8x7B-v0.1 -f moe_gated` | 46.70B (12.88B activated) | |
-| DeepSeek-V2-Chat | mla | silu+deepseek_moe | `-m deepseek-ai/DeepSeek-V2-Chat -a mla -f silu+deepseek_moe --num-dense-layers 1` | 235.74B (21.38B activated) | |
+| DeepSeek-LLM 67B Chat | GQA | FFN | `-m deepseek-ai/deepseek-llm-67b-chat -a gqa` | 67.42B |yes|
+| DeepSeek-MoE | GQA | DeepSeek MoE | `-m deepseek-ai/deepseek-moe-16b-chat -a mha -f deepseek_moe` | 16.87B | yes |
+| DeepSeek-V2-Chat | MLA | DeepSeek MoE+FFN | `-m deepseek-ai/DeepSeek-V2-Chat -a mla -f silu+deepseek_moe --num-dense-layers 1` | 235.74B | yes |
+| DeepSeek-V3 | MLA | DeepSeek MoE+FFN | `-m deepseek-ai/DeepSeek-V3 -a mla -f silu+deepseek_moe --num-dense-layers 3` | 671.02B | yes |
+| DeepSeek-V4 Pro | CSA + HCA| DeepSeek MoE | TODO | TODO | |
+| DeepSeek-V4 Flash | CSA + HCA| DeepSeek MoE | TODO | TODO | |
+| Qwen3 8B | GQA | silu | `-m Qwen/Qwen3-8B -a gqa --qk-norm` | 8.19B | yes |
+| Qwen3 235B-A22B | GQA | MoE | `-m Qwen/Qwen3-235B-A22B -a gqa -f moe --qk-norm` | 235.09B | yes |
 
 > Note: Some models (e.g. Llama 3, Gemma 2) require authentication on HuggingFace. Use a local `config.json` or a token for access.
 
