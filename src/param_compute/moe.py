@@ -108,14 +108,35 @@ def _deepseek_moe(cfg: dict) -> tuple[int, int]:
         )
     )
 
-    shared_expert = 2 * linear_params(d_model, d_ff, bias) + linear_params(
-        d_ff, d_model, bias
+    ffn = DENSE_FFN_VARIANTS["silu"]
+    shared_expert, _ = expert, _ = ffn(
+        {
+            "hidden_size": d_model,
+            "intermediate_size": d_ff,
+            "bias": bias,
+        }
+    )
+    routed_expert, _ = ffn(
+        {
+            "hidden_size": d_model,
+            "intermediate_size": d_ff,
+            "bias": bias,
+        }
     )
     shared = n_shared * shared_expert
-    routed = n_routed * shared_expert
+    routed = n_routed * routed_expert
     router = linear_params(d_model, n_routed)
+    logger.debug(
+        {
+            "shared_expert": shared_expert,
+            "routed_expert": routed_expert,
+            "shared": shared,
+            "routed": routed,
+            "router": router,
+        }
+    )
     total = shared + routed + router
-    activated = shared + top_k * shared_expert + router
+    activated = shared + top_k * routed_expert + router
     return total, activated
 
 
