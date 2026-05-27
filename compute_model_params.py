@@ -63,19 +63,37 @@ def _validate_ffn(val: str) -> str:
     return val
 
 
-def export_result(result: dict, cfg: dict, args: argparse.Namespace, attention: str, ffn: str) -> None:
+def export_result(
+    result: dict, cfg: dict, args: argparse.Namespace, attention: str, ffn: str
+) -> None:
     model_name = cfg.get("_name_or_path", args.model)
-    family = "MoE" if any(k in ffn for k in ["moe", "moe_gated", "deepseek_moe"]) else "Dense"
+    family = (
+        "MoE"
+        if any(k in ffn for k in ["moe", "moe_gated", "deepseek_moe"])
+        else "Dense"
+    )
 
     parts = [
-        {"name": "Embeddings", "params_billion": round(result["embedding"] / 1e9, 2),
-         "description": "Token embedding and output projection"},
-        {"name": "Attention", "params_billion": round(result["attention"] / 1e9, 2),
-         "description": "Q/K/V/O projections across all layers"},
-        {"name": "FFN", "params_billion": round(result["ffn"] / 1e9, 2),
-         "description": "Feed-forward blocks"},
-        {"name": "Norms", "params_billion": round(result["layernorm"] / 1e9, 2),
-         "description": "Layer norms and auxiliary parameters"},
+        {
+            "name": "Embeddings",
+            "params_billion": round(result["embedding"] / 1e9, 2),
+            "description": "Token embedding and output projection",
+        },
+        {
+            "name": "Attention",
+            "params_billion": round(result["attention"] / 1e9, 2),
+            "description": "Q/K/V/O projections across all layers",
+        },
+        {
+            "name": "FFN",
+            "params_billion": round(result["ffn"] / 1e9, 2),
+            "description": "Feed-forward blocks",
+        },
+        {
+            "name": "Norms",
+            "params_billion": round(result["layernorm"] / 1e9, 2),
+            "description": "Layer norms and auxiliary parameters",
+        },
     ]
 
     record = {
@@ -83,6 +101,8 @@ def export_result(result: dict, cfg: dict, args: argparse.Namespace, attention: 
         "year": args.year,
         "family": family,
         "attention": attention.upper(),
+        "total_params": result["total_params"],
+        "activated_total": result["activated_total"],
         "total_params_billion": round(result["total_params"] / 1e9, 2),
         "active_params_billion": round(result["activated_total"] / 1e9, 2),
         "config": cfg,
