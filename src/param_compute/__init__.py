@@ -75,8 +75,10 @@ def compute_params(
 
     logger.debug(
         {
+            "num_dense": num_dense,
             "dense_total": dense_total,
             "dense_activated": dense_activated,
+            "num_moe": num_moe,
             "moe_total": moe_total,
             "moe_activated": moe_activated,
         }
